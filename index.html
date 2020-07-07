@@ -10,7 +10,7 @@
   <script>
     window.runtime = (new Date()).toLocaleString()
     function log(str) {
-      console.log(str)
+      //console.log(str)
       $("#log").html(str)
     }
     
@@ -38,11 +38,11 @@
 
     function send_events(n, total, span, func) {
       state= n+"/"+total
-      console.log(state)
+      //console.log(state)
       $("#"+span).html(state)
       eval(func)
       if(n<total) {
-        window.setTimeout("send_events("+(n+1)+", "+total+", '"+span+"', '"+func+"')",100)
+        window.setTimeout("send_events("+(n+1)+", "+total+", '"+span+"', '"+func+"')",10)
       } else {
         log("Sent " + total + ": "+ func)
       }
@@ -60,7 +60,7 @@
       // functionCallX
       span.finish(); // Remember that only finished spans will be sent with the transaction
       transaction.finish(); // Finishing the transaction will send it to Sentry
-      log('sent transaction' + name)
+      log('sent ' + name)
     }
 
 
@@ -80,7 +80,7 @@ Notes:
   <li>Turn off spike protection
   <li>If you are using a paid account, this will cost real money
   <li>It may take a few minutes for traffic to show up
-  <li>There's a 0.1s delay beteween events, so it can take a long time :)
+  <li>There's a 0.01s delay beteween events, so it can take a long time if you're sending 1MM of anything
 </ul>
 <div id="log"></div>
 
@@ -96,16 +96,16 @@ Notes:
     <input type=button value="Send 100 errors" 
     onclick = "send_events(1, 100, 'errs', 'send_error()')"
     />
-    <input type=button value="Send 1000 errors" 
+    <input type=button value="Send 1,000 errors" 
     onclick = "send_events(1, 1000, 'errs', 'send_error()')"
     />
-    <input type=button value="Send 10000 errors" 
+    <input type=button value="Send 10,000 errors" 
     onclick = "send_events(1, 10000, 'errs', 'send_error()')"
     />
-    <input type=button value="Send 50000 errors" 
+    <input type=button value="Send 50,000 errors" 
     onclick = "send_events(1, 50000, 'errs', 'send_error()')"
     />
-    <input type=button value="Send 100000 errors" 
+    <input type=button value="Send 100,000 errors" 
     onclick = "send_events(1, 100000, 'errs', 'send_error()')"
     />
     <span id="errs"></span>
@@ -117,16 +117,16 @@ Notes:
     <input type=button value="Send 100 transactions" 
     onclick = "send_events(1, 100, 'ts', 'send_transaction()')"
     />
-    <input type=button value="Send 1000 transactions" 
+    <input type=button value="Send 1,000 transactions" 
     onclick = "send_events(1, 1000, 'ts', 'send_transaction()')"
     />
-    <input type=button value="Send 10000 transactions" 
+    <input type=button value="Send 10,000 transactions" 
     onclick = "send_events(1, 10000, 'ts', 'send_transaction()')"
     />
-    <input type=button value="Send 100000 transactions" 
+    <input type=button value="Send 100,000 transactions" 
     onclick = "send_events(1, 100000, 'ts', 'send_transaction()')"
     />
-    <input type=button value="Send 1000000 transactions" 
+    <input type=button value="Send 1,000,000 transactions" 
     onclick = "send_events(1, 1000000, 'ts', 'send_transaction()')"
     />
   
