@@ -1,0 +1,138 @@
+<html>
+
+  <head>
+    <title>JS test</title>
+    <script src="https://browser.sentry-cdn.com/5.19.1/bundle.apm.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+  <script>
+    window.runtime = (new Date()).toLocaleString()
+    function log(str) {
+      console.log(str)
+      $("#log").html(str)
+    }
+    
+    console.log("Running at " + window.runtime)
+
+      // dave-test/billing-test
+      Sentry.init({
+        dsn: 'https://c95e5819c990417eb8c6873a5fa9c47f@o194887.ingest.sentry.io/5316387',
+        integrations: [new Sentry.Integrations.Tracing()],
+
+        tracesSampleRate: 1,
+      });
+
+
+    function change_dsn() {
+      //dave-test/javascript: https://8995c2427a3845688fac1988f3c50053@o194887.ingest.sentry.io/1299501
+      Sentry.init({
+        dsn: $("#dsn").val(),
+        integrations: [new Sentry.Integrations.Tracing()],
+
+        tracesSampleRate: 1,
+      });
+
+    }
+
+    function send_events(n, total, span, func) {
+      state= n+"/"+total
+      console.log(state)
+      $("#"+span).html(state)
+      eval(func)
+      if(n<total) {
+        window.setTimeout("send_events("+(n+1)+", "+total+", '"+span+"', '"+func+"')",100)
+      } else {
+        log("Sent " + total + ": "+ func)
+      }
+    }
+
+
+    function send_transaction() {
+      var name = 'transaction '+ window.runtime + " - " + Date.now()+Math.random();
+      const transaction = Sentry.startTransaction({
+        name: name
+      });
+      const span = transaction.startChild({
+        op: 'functionX'
+      }); // This function returns a Span
+      // functionCallX
+      span.finish(); // Remember that only finished spans will be sent with the transaction
+      transaction.finish(); // Finishing the transaction will send it to Sentry
+      log('sent transaction' + name)
+    }
+
+
+    function send_error() {
+      var name = 'error '+ window.runtime + " - " + Date.now()+Math.random();
+      Sentry.captureException(new Error("Error "+name));
+
+      log('sent ' + name)
+    }
+
+
+  </script>
+  
+<h1>Send a lot of JavaScript Traffic</h1>
+Notes: 
+<ul>
+  <li>Turn off spike protection
+  <li>If you are using a paid account, this will cost real money
+  <li>It may take a few minutes for traffic to show up
+  <li>There's a 0.1s delay beteween events, so it can take a long time :)
+</ul>
+<div id="log"></div>
+
+  <h2>DSN</h2>
+  <input type=text size=80 value="https://c95e5819c990417eb8c6873a5fa9c47f@o194887.ingest.sentry.io/5316387"
+  onchange ="change_dsn()" id='dsn'> 
+  <input type="button" value="change"> <!-- dummy button to get people to trigger the onchange-->
+
+  <h2>Send Errors</h2>
+    <input type=button value="Send 10 errors" 
+    onclick = "send_events(1, 10, 'errs', 'send_error()')"
+    />
+    <input type=button value="Send 100 errors" 
+    onclick = "send_events(1, 100, 'errs', 'send_error()')"
+    />
+    <input type=button value="Send 1000 errors" 
+    onclick = "send_events(1, 1000, 'errs', 'send_error()')"
+    />
+    <input type=button value="Send 10000 errors" 
+    onclick = "send_events(1, 10000, 'errs', 'send_error()')"
+    />
+    <input type=button value="Send 50000 errors" 
+    onclick = "send_events(1, 50000, 'errs', 'send_error()')"
+    />
+    <input type=button value="Send 100000 errors" 
+    onclick = "send_events(1, 100000, 'errs', 'send_error()')"
+    />
+    <span id="errs"></span>
+
+    <h2>Send Transactions</h2>
+    <input type=button value="Send 10 transactions" 
+    onclick = "send_events(1, 10, 'ts', 'send_transaction()')"
+    />
+    <input type=button value="Send 100 transactions" 
+    onclick = "send_events(1, 100, 'ts', 'send_transaction()')"
+    />
+    <input type=button value="Send 1000 transactions" 
+    onclick = "send_events(1, 1000, 'ts', 'send_transaction()')"
+    />
+    <input type=button value="Send 10000 transactions" 
+    onclick = "send_events(1, 10000, 'ts', 'send_transaction()')"
+    />
+    <input type=button value="Send 100000 transactions" 
+    onclick = "send_events(1, 100000, 'ts', 'send_transaction()')"
+    />
+    <input type=button value="Send 1000000 transactions" 
+    onclick = "send_events(1, 1000000, 'ts', 'send_transaction()')"
+    />
+  
+    <span id="ts"></span>
+
+
+  </body>
+
+</html>
