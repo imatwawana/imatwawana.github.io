@@ -42,7 +42,7 @@
       $("#"+span).html(state)
       eval(func)
       if(n<total) {
-        window.setTimeout("send_events("+(n+1)+", "+total+", '"+span+"', '"+func+"')",100)
+        window.setTimeout("send_events("+(n+1)+", "+total+", '"+span+"', '"+func+"')",200)
       } else {
         log("Sent " + total + ": "+ func)
       }
@@ -80,7 +80,7 @@ Notes:
   <li>Turn off spike protection
   <li>If you are using a paid account, this will cost real money
   <li>It may take a few minutes for traffic to show up
-  <li>There's a 0.1s delay beteween events, so it can take a long time if you're sending 1MM of anything
+  <li>There's a 0.2s delay beteween events, so it can take a long time if you're sending 1MM of anything
 </ul>
 <div id="log"></div>
 
