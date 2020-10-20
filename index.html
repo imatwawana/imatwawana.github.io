@@ -29,7 +29,7 @@
       Sentry.init({
         dsn: $("#dsn").val(),
         integrations: [new Sentry.Integrations.Tracing()],
-        tracesSampleRate: 1,
+        tracesSampleRate: 0.5,
       });
 
     }
