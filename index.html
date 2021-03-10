@@ -19,7 +19,7 @@
       // dave-test/billing-test
       Sentry.init({
         dsn: 'https://a48fa537a5314af48c4ea3cb4934a31d@o529520.ingest.sentry.io/5650555',
-        integrations: [new Sentry.Integrations.Tracing()],
+        integrations: [new Sentry.Integrations.BrowserTracing()],
         tracesSampleRate: 1,
       });
 
