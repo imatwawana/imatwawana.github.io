@@ -77,7 +77,7 @@ Notes:
   <li>Turn off spike protection
   <li>If you are using a paid account, this will cost real money
   <li>It may take a few minutes for traffic to show up
-  <li>There's a 0.2s delay beteween events, so it can take a long time if you're sending 1MM of anything
+  <li>There's a 0.2s delay beteween events, so it can take a long time if you're sending 100,000 of anything
 </ul>
 <div id="log"></div>
 
@@ -123,9 +123,7 @@ Notes:
     <input type=button value="Send 100,000 transactions" 
     onclick = "send_events(1, 100000, 'ts', 'send_transaction()')"
     />
-    <input type=button value="Send 1,000,000 transactions" 
-    onclick = "send_events(1, 1000000, 'ts', 'send_transaction()')"
-    />
+    
   
     <span id="ts"></span>
 
