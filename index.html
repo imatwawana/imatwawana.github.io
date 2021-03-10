@@ -18,14 +18,13 @@
 
       // dave-test/billing-test
       Sentry.init({
-        dsn: 'https://c95e5819c990417eb8c6873a5fa9c47f@o194887.ingest.sentry.io/5316387',
+        dsn: 'https://a48fa537a5314af48c4ea3cb4934a31d@o529520.ingest.sentry.io/5650555',
         integrations: [new Sentry.Integrations.Tracing()],
         tracesSampleRate: 1,
       });
 
 
     function change_dsn() {
-      //dave-test/javascript: https://8995c2427a3845688fac1988f3c50053@o194887.ingest.sentry.io/1299501
       Sentry.init({
         dsn: $("#dsn").val(),
         integrations: [new Sentry.Integrations.Tracing()],
@@ -83,7 +82,7 @@ Notes:
 <div id="log"></div>
 
   <h2>DSN</h2>
-  <input type=text size=80 value="https://c95e5819c990417eb8c6873a5fa9c47f@o194887.ingest.sentry.io/5316387"
+  <input type=text size=80 value="https://a48fa537a5314af48c4ea3cb4934a31d@o529520.ingest.sentry.io/5650555"
   onchange ="change_dsn()" id='dsn'> 
   <input type="button" value="change"> <!-- dummy button to get people to trigger the onchange-->
 
