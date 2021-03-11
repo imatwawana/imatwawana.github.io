@@ -1,6 +1,6 @@
 # Sentry Volume Test
 
-Volume Test is an application for testing whether [sentry.io](https://sentry.io) is receiving errors and transactions.
+Sentry Volume Test is an application for testing whether [sentry.io](https://sentry.io) is receiving errors and transactions.
 
 You can use this application in one of two ways. You can use it to just test a Sentry account using the **Change DSN** function, without making any changes to the codebase. Or you can fork this repository, change the DSN of the application permanently, and test other changes to the application. The Installation and Usage sections of this readme file cover both options.
 
